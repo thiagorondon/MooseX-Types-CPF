@@ -2,7 +2,7 @@ package MooseX::Types::CPF;
 use strict;
 use warnings;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 our $AUTHORITY = 'CPAN:TBR';
 
 use MooseX::Types -declare => ['CPF'];
@@ -15,11 +15,9 @@ sub _validate_cpf {
 }
 
 subtype CPF,
-  as Str, where { _validate_cpf($_) };
-
-coerce CPF
-  # someone's bound to try it
-  from Str, via { uc };
+  as Str, 
+  where { _validate_cpf($_) },
+  message { 'CPF is invalid' };
 
 1;
 
